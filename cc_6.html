@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Animation</title>
+    <style>
+        canvas {
+            display: block;
+            margin: auto;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bouncingBallCanvas" width="800" height="600"></canvas>
+    <script>
+        // Commit: "Set up HTML canvas for animation."
+        const canvas = document.getElementById('bouncingBallCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Commit: "Create Ball constructor with initial properties."
+        class Ball {
+            constructor(x, y, radius, dx, dy, color) {
+                this.x = x;
+                this.y = y;
+                this.radius = radius;
+                this.dx = dx;
+                this.dy = dy;
+                this.color = color;
+            }
+
+            // Commit: "Implement draw method for Ball class."
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+
+            // Commit: "Add update method with collision detection for Ball class."
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+
+                // Collision detection with walls
+                if(this.x + this.radius > canvas.width || this.x - this.radius < 0) {
+                    this.dx = -this.dx;
+                }
+                if(this.y + this.radius > canvas.height || this.y - this.radius < 0) {
+                    this.dy = -this.dy;
+                }
+
+                this.draw();
+            }
+        }
+
+        // Create a new ball instance with the given properties
+        const ball = new Ball(200, 160, 20, 2, 2, 'red');
+
+        // Commit: "Implement animation using setInterval."
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ball.update();
+        }
+
+        setInterval(animate, 10); // Choose a suitable interval for smooth animation
+    </script>
+</body>
+</html>
