@@ -1,3 +1,6 @@
+//U54529624
+
+        //establish html background
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,11 +18,11 @@
 <body>
     <canvas id="bouncingBallCanvas" width="800" height="600"></canvas>
     <script>
-        // Commit: "Set up HTML canvas for animation."
+        // Set up HTML canvas
         const canvas = document.getElementById('bouncingBallCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Commit: "Create Ball constructor with initial properties."
+        //Create Ball constructor and preps for animation
         class Ball {
             constructor(x, y, radius, dx, dy, color) {
                 this.x = x;
@@ -30,7 +33,6 @@
                 this.color = color;
             }
 
-            // Commit: "Implement draw method for Ball class."
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
@@ -39,12 +41,12 @@
                 ctx.closePath();
             }
 
-            // Commit: "Add update method with collision detection for Ball class."
+// Adds a collision method
             update() {
                 this.x += this.dx;
                 this.y += this.dy;
 
-                // Collision detection with walls
+// Collision detection with walls
                 if(this.x + this.radius > canvas.width || this.x - this.radius < 0) {
                     this.dx = -this.dx;
                 }
@@ -56,16 +58,16 @@
             }
         }
 
-        // Create a new ball instance with the given properties
+// Create a new ball instance with the given properties
         const ball = new Ball(200, 160, 20, 2, 2, 'red');
 
-        // Commit: "Implement animation using setInterval."
+// Implements animation using setInterval
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ball.update();
         }
-
-        setInterval(animate, 10); // Choose a suitable interval for smooth animation
+// Sets interval for smooth animation
+        setInterval(animate, 10); 
     </script>
 </body>
 </html>
